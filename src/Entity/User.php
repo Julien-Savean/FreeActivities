@@ -3,16 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
@@ -32,45 +32,10 @@ class User implements UserInterface
     private $roles = [];
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string The hashed password
+     * @ORM\Column(type="string")
      */
-    private $firstname;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $lastname;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $Age;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $city;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $picture;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=sport::class, inversedBy="users")
-     */
-    private $sport;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="user")
-     */
-    private $activities;
-
-    public function __construct()
-    {
-        $this->sport = new ArrayCollection();
-        $this->activities = new ArrayCollection();
-    }
+    private $password;
 
     public function getId(): ?int
     {
@@ -127,17 +92,23 @@ class User implements UserInterface
     }
 
     /**
-     * This method can be removed in Symfony 6.0 - is not needed for apps that do not check user passwords.
-     *
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
-        return null;
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
     }
 
     /**
-     * This method can be removed in Symfony 6.0 - is not needed for apps that do not check user passwords.
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
      * @see UserInterface
      */
@@ -153,119 +124,5 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstname(string $firstname): self
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    public function setLastname(string $lastname): self
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    public function getAge(): ?int
-    {
-        return $this->Age;
-    }
-
-    public function setAge(?int $Age): self
-    {
-        $this->Age = $Age;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(?string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(string $picture): self
-    {
-        $this->picture = $picture;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|sport[]
-     */
-    public function getSport(): Collection
-    {
-        return $this->sport;
-    }
-
-    public function addSport(sport $sport): self
-    {
-        if (!$this->sport->contains($sport)) {
-            $this->sport[] = $sport;
-        }
-
-        return $this;
-    }
-
-    public function removeSport(sport $sport): self
-    {
-        $this->sport->removeElement($sport);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Activity[]
-     */
-    public function getActivities(): Collection
-    {
-        return $this->activities;
-    }
-
-    public function addActivity(Activity $activity): self
-    {
-        if (!$this->activities->contains($activity)) {
-            $this->activities[] = $activity;
-            $activity->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeActivity(Activity $activity): self
-    {
-        if ($this->activities->removeElement($activity)) {
-            // set the owning side to null (unless already changed)
-            if ($activity->getUser() === $this) {
-                $activity->setUser(null);
-            }
-        }
-
-        return $this;
     }
 }

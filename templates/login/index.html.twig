@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+
+{% block body %}
+    <main class="login__page">
+        <img class="image" src="{{ asset('build/images/sports.png') }}" alt="">
+        <section class="login">
+            <h1>Connexion</h1>
+            {% if error %}
+                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+            <form action="{{ path('login') }}" method="post">
+                <label for="username">Email:</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+
+                <label for="password">Mot de passe:</label>
+                <input type="password" id="password" name="_password"/>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <input type="hidden" name="_target_path" value="/"/>
+
+                <button class="button" type="submit">Connexion</button>
+            </form>
+        </section>
+        <div class="new">
+            <a href="{{ path('register') }}">Créer un compte</a>
+        </div>
+    </main>
+{% endblock %}

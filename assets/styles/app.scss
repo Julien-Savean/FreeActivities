@@ -1,0 +1,111 @@
+@import "~bootstrap/scss/bootstrap";
+
+@font-face {
+    font-family: 'Bangers Regular';
+    src: url('/assets/fonts/Bangers-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Kirsty Regular';
+    src: url('/assets/fonts/kirsty-rg.otf') format('opentype');
+}
+
+$title-font: 'Bangers Regular';
+$text-font: 'Kirsty Regular';
+
+$color-main: #023e61;
+$color-secondary: #1FA8FA;
+$color-background: #060333;
+
+:root {
+    font-size: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $title-font;
+}
+
+body,
+main,
+nav,
+footer,
+section,
+article,
+div,
+p,
+a,
+span,
+q,
+figure,
+form,
+label,
+ul,
+li,
+table,
+link {
+    font-family: $text-font;
+}
+
+link,
+a,
+li {
+    list-style: none;
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+        color: black;
+    }
+}
+
+body {
+    width: 100%;
+    background-image: url(../images/wallpaper.jpg);
+}
+
+.navbar{
+    .container-fluid {
+        padding: 0 2rem 0 1rem;
+    }
+
+    .navbar-brand img{
+        width: 250px;
+    }
+
+    .navbar-toggler {
+        font-size: 2rem;
+
+    }
+
+    .navbar-nav {
+        font-size: 1.5rem;
+        align-items: flex-end;
+    }
+}
+
+.button {
+    padding : 0.5rem 1rem;
+    color: black;
+    background-color: white;
+    border: $color-main solid 1px;
+    border-radius: 2rem;
+}
+
+@media only screen and (min-width: 800px) {
+    .button {
+        transition: border 0.5s, color 0.5s;
+
+        &:hover {
+            color: $color-secondary;
+            border: $color-secondary solid 1px;
+        }
+    }
+}
+

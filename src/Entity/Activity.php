@@ -43,12 +43,7 @@ class Activity
     private $capacity;
 
     /**
-     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="activities")
-     */
-    private $user;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=sport::class, inversedBy="activities")
+     * @ORM\ManyToOne(targetEntity=Sport::class, inversedBy="activities")
      */
     private $sport;
 
@@ -113,18 +108,6 @@ class Activity
     public function setCapacity(?int $capacity): self
     {
         $this->capacity = $capacity;
-
-        return $this;
-    }
-
-    public function getUser(): ?user
-    {
-        return $this->user;
-    }
-
-    public function setUser(?user $user): self
-    {
-        $this->user = $user;
 
         return $this;
     }

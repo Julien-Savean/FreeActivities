@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Activité {{ activity.id }}{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('show') }}
+{% endblock %}
+
+{% block body %}
+    <a class="back" href="{{ path('index') }}"> < Retour</a>
+    <section class="details">
+        <img src="{{ activity.picture }}" alt="{{ activity.sport.name }}">
+        <h1 class="title">{{ activity.title }}</h1>
+        <div class="info">
+            <div class="date">{{ activity.date|date('d/m/Y') }}</div>
+            <div class="sport">{{ activity.sport.name }}</div>
+        </div>
+        <div class="description">{{ activity.description }}</div>
+        <button class="button">Contacter</button>
+
+    </section>
+
+{% endblock %}

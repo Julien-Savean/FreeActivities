@@ -1,43 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Activity index{% endblock %}
+{% block title %}Acceuil{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('home') }}
+{% endblock %}
 
 {% block body %}
-    <h1>Activity index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Picture</th>
-                <th>Capacity</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+        <section class="search">
+            <form onsubmit="event.preventDefault();" role="search">
+                <input id="search" type="search" placeholder="Votre recherche" autofocus required />
+                <button class="go" type="submit">Go</button>
+            </form>
+        </section>
         {% for activity in activities %}
-            <tr>
-                <td>{{ activity.id }}</td>
-                <td>{{ activity.title }}</td>
-                <td>{{ activity.description }}</td>
-                <td>{{ activity.date ? activity.date|date('Y-m-d') : '' }}</td>
-                <td>{{ activity.picture }}</td>
-                <td>{{ activity.capacity }}</td>
-                <td>
-                    <a href="{{ path('activity_show', {'id': activity.id}) }}">show</a>
-                    <a href="{{ path('activity_edit', {'id': activity.id}) }}">edit</a>
-                </td>
-            </tr>
+        <a href="{{ path('show', {'id': activity.id}) }}">
+            <div class="card">
+                <h1 class="title">{{ activity.title }}</h1>
+                <div class="elements">
+                    <div class="image"><img src="{{ activity.picture }}" alt="{{ activity.sport.name }}"></div>
+                    <div class="description">{{ activity.description }}</div>
+                </div>
+            </div>
+        </a>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Pas d'activités pour le moment</td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('activity_new') }}">Create new</a>
 {% endblock %}

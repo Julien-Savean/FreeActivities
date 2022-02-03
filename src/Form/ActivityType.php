@@ -17,7 +17,7 @@ class ActivityType extends AbstractType
             ->add('date')
             ->add('picture')
             ->add('capacity')
-            ->add('sport')
+            ->add('sport', null, ['choice_label' => 'name'])
         ;
     }
 

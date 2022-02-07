@@ -8,17 +8,17 @@
 
 {% block body %}
         <section class="search">
-            <form onsubmit="event.preventDefault();" role="search">
-                <input id="search" type="search" placeholder="Votre recherche" autofocus required />
-                <button class="go" type="submit">Go</button>
-            </form>
+            {{ form_start(form) }}
+                    {{ form_row(form.searchField) }}
+                   <button class="go" type="submit">Go</button>
+            {{ form_end(form) }}
         </section>
         {% for activity in activities %}
         <a href="{{ path('show', {'id': activity.id}) }}">
             <div class="card">
                 <h1 class="title">{{ activity.title }}</h1>
                 <div class="elements">
-                    <div class="image"><img src="{{ activity.picture }}" alt="{{ activity.sport.name }}"></div>
+                    <div class="image"><img src="{{ activity.picture }}" alt="activity"></div>
                     <div class="description">{{ activity.description }}</div>
                 </div>
             </div>

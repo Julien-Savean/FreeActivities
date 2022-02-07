@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Activity;
 use App\Form\ActivityType;
+use App\Form\SearchType;
 use App\Repository\ActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,10 +20,24 @@ class ActivityController extends AbstractController
     /**
      * @Route("/", name="index", methods={"GET"})
      */
-    public function index(ActivityRepository $activityRepository): Response
-    {
+    public function index(ActivityRepository $activityRepository, Request $request): Response
+    {   
+        $activities = $activityRepository->findAll();
+
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() and $form->isValid()) {
+            $data = (array)$form->getData();
+            /**
+             * @var string $search
+             */
+            $search = $data['searchField'];
+            $activities = $activityRepository->search(mb_strtolower($search));
+        }
+
         return $this->render('activity/index.html.twig', [
-            'activities' => $activityRepository->findAll(),
+            'activities' => $activities,
+            'form' => $form->createView(),
         ]);
     }
 

@@ -88,6 +88,10 @@ body {
         font-size: 1.5rem;
         align-items: flex-end;
     }
+
+    .navbar-collapse {
+        justify-content: flex-end;
+    }
 }
 
 .button {

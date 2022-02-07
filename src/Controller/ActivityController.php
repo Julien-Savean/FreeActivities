@@ -21,7 +21,7 @@ class ActivityController extends AbstractController
      * @Route("/", name="index", methods={"GET"})
      */
     public function index(ActivityRepository $activityRepository, Request $request): Response
-    {   
+    {
         $activities = $activityRepository->findAll();
 
         $form = $this->createForm(SearchType::class);

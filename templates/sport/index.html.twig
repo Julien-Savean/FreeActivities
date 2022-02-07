@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sports{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('sport') }}
+{% endblock %}
+
+{% block body %}
+    <ul>
+        {% for sport in sports %}
+            <a href="#"><li>{{ sport.name }}</li></a>
+        {% endfor %}
+    </ul>
+{% endblock %}

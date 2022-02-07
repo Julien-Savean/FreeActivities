@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Enregistrement{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('register') }}
+{% endblock %}
+
+{% form_theme registrationForm 'bootstrap_5_layout.html.twig' %}
 
 {% block body %}
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+    <section class="register">
+        <a href="{{ path('index') }}">< Retour</a>
+        <h1>Enregistrement</h1>
+        {{ include('registration/_form.html.twig') }}
+    </section>
 {% endblock %}

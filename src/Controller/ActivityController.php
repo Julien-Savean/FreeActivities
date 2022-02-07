@@ -28,9 +28,6 @@ class ActivityController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() and $form->isValid()) {
             $data = (array)$form->getData();
-            /**
-             * @var string $search
-             */
             $search = $data['searchField'];
             $activities = $activityRepository->search(mb_strtolower($search));
         }

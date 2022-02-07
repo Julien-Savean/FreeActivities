@@ -43,7 +43,7 @@ form {
   }
 
   .go {
-    display: none; // prevent being able to tab to it
+    display: block;
     position: absolute;
     top: 0;
     right: 0;

@@ -1,0 +1,31 @@
+@import 'app.scss';
+
+.new {
+    margin : 0 3rem;
+
+    h1 {
+        text-align: center;
+        margin: 1.5rem ;
+    }
+
+    input, select, textarea {
+        text-align: center;
+        border-radius: 20px;
+        box-shadow: 2px 2px 5px $color-background;
+    }
+
+    .button__container {
+        display: flex;
+        justify-content: center;
+
+        .button {
+            text-align: center;
+            margin: 0.5rem;
+        }
+    }
+
+    .form-label {
+        margin-bottom: 0;
+    }
+
+}

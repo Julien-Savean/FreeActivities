@@ -14,7 +14,7 @@
             {{ form_end(form) }}
         </section>
         {% for activity in activities %}
-        <a href="{{ path('show', {'id': activity.id}) }}">
+            <a href="{{ path('show', {'id': activity.id}) }}">
             <div class="card">
                 <h1 class="title">{{ activity.title }}</h1>
                 <div class="elements">

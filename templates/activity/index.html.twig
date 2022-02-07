@@ -9,20 +9,20 @@
 {% block body %}
         <section class="search">
             {{ form_start(form) }}
-                    {{ form_row(form.searchField) }}
-                   <button class="go" type="submit">Go</button>
+                {{ form_row(form.searchField) }}
+                <button class="go" type="submit">Go</button>
             {{ form_end(form) }}
         </section>
         {% for activity in activities %}
             <a href="{{ path('show', {'id': activity.id}) }}">
-            <div class="card">
-                <h1 class="title">{{ activity.title }}</h1>
-                <div class="elements">
-                    <div class="image"><img src="{{ activity.picture }}" alt="activity"></div>
-                    <div class="description">{{ activity.description }}</div>
+                <div class="card">
+                    <h1 class="title">{{ activity.title }}</h1>
+                    <div class="elements">
+                        <div class="image"><img src="{{ activity.picture }}" alt="activity"></div>
+                        <div class="description">{{ activity.description }}</div>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
         {% else %}
             <tr>
                 <td colspan="7">Pas d'activités pour le moment</td>

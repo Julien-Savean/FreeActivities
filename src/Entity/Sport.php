@@ -29,9 +29,15 @@ class Sport
      */
     private $activities;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="sport")
+     */
+    private $users;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,6 +82,33 @@ class Sport
             if ($activity->getSport() === $this) {
                 $activity->setSport(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addSport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeSport($this);
         }
 
         return $this;

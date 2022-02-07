@@ -47,6 +47,11 @@ class Activity
      */
     private $sport;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="activities")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +125,18 @@ class Activity
     public function setSport(?sport $sport): self
     {
         $this->sport = $sport;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
